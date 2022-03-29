@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Libs\MysqlTestLib;
+use App\Models\Test;
 use Illuminate\Console\Command;
 
 class MysqlTest extends Command
@@ -25,9 +26,10 @@ class MysqlTest extends Command
         $this->mtl->test_primary_key(50000);
         // INTEGER GT
         $this->mtl->test_greater_than_integer(50000, 100);
-
         // NAME LIKE
-        $this->mtl->test_name_like(400);
+        $this->mtl->test_name_like(1500);
+        // INSERT TEST
+        $this->mtl->test_insert(10000);
 
         return 0;
     }

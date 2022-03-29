@@ -12,7 +12,7 @@ class TestFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'price' => $this->get_random_price(1000000)
+            'point' => $this->get_random_price(1000000)
         ];
     }
 
