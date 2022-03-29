@@ -22,8 +22,8 @@ class MysqlTestLib
         $this->disp(__FUNCTION__);
         $ts = $this->test_start();
         for($i = 0; $i < $times; $i++){
-            $price = mt_rand(1, 1000000);
-            $tests = Test::where('price' , '>', $price)->take($num)->get();
+            $point = mt_rand(1, 1000000);
+            $tests = Test::where('point' , '>', $point)->take($num)->get();
         }
         $this->test_finish($ts);
     }
@@ -39,18 +39,30 @@ class MysqlTestLib
         $this->test_finish($ts);
     }
 
+    public function test_insert($times){
+        $this->disp(__FUNCTION__);
+        $ts = $this->test_start();
+        for($i = 0; $i < $times; $i++){
+            $tmp = Test::factory()->make();
+            $test = new Test();
+            $test->name = $tmp->name;
+            $test->point = $tmp->point;
+            $test->save();
+        }
+        $this->test_finish($ts);
+    }
     public function disp($text){
         echo $text . "\n";
     }
 
     public function test_start(){
-        return new Carbon();
+        return microtime(true);
     }
 
-    public function test_finish(Carbon $dt_start){
-        $dt = new Carbon();
-        $diff = $dt_start->diffInSeconds($dt);
-        $text = "Start:$dt_start->timestamp, End:$dt->timestamp => $diff sec";
+    public function test_finish(float $mt_start){
+        $mt = microtime(true);
+        $diff = $mt - $mt_start;
+        $text = "Start:$mt_start, End:$mt => $diff sec";
         $this->disp($text);
     }
 
